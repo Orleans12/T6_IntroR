@@ -1,0 +1,78 @@
+---
+title: "T6_IntroR"
+author: "Vicente Quezada"
+date: "26/2/2022"
+output: 
+  html_document:
+    self-contained: true
+    fig_height: 6
+    fig_width: 8
+    theme: journal
+    highlight: zenburn
+      
+---
+# Mi primer HTML con RMARKDOWN
+### Explicación del entorno
+R Markdown es una sencilla sintaxis de formato para la creación de documentos HTML, PDF y MS Word. Para más detalles sobre el uso de R Markdown vea <http://rmarkdown.rstudio.com>:
+### R codes
+En esta sección incluiré códigos propios hechos sobre manejo y presentación de data en R, en esto códigos uso algunas librerías pesadas que contienen datos sobre valores de diamantes u autos.
+
+### Diamondandcars
+Este gráfico representa los valores de los diamantes con respecto al tipo del corte y al color, generando un diagrama de columnas. *Muestro el código para ejecutar el gráfico*
+
+```{r DiamondsandCars, include=TRUE}
+library(tidyverse)
+library(lubridate)
+library(ggTimeSeries)
+
+diamonds%>% ggplot()+
+  geom_col(aes(x=cut, y= price, fill=color))+
+  theme_classic()
+```
+
+### Diamonds2
+Este gráfico utiliza una geometría diferente al de arriba, usa boxplots, se puede mejorar la presentación al colocar por separado cada boxplot, es una de las indicadiones que podría mencionar.
+
+```{r diamonds2, include=FALSE}
+diamonds%>%
+  ggplot(aes(cut, price, color=color))+
+  geom_boxplot()+
+  theme_bw()
+```
+
+### Cars
+Por último, tenemos un gráfico llamado Radar Chart, usa una data llamada mtcars para el plot, de igual forma se podrá leer el código usado para la representación.
+```{r cars, include=TRUE}
+library(ggplot2)  
+library(tidyverse)
+library(ggradar)
+library(dplyr)
+library(scales)
+library(tibble)
+cars=mtcars
+cars
+
+cars <- mutate(.data = mtcars, cyl = factor(cyl))    #Reescribo las variables del data frame para crear una relación entre varias variables utilizando a la variable cyl como leyenda para diferenciar cada auto por su octanaje
+
+cars_sc <- mutate_each(tbl = cars, funs(rescale), -cyl) #Ahora se deber ordenar cada variable en una nueva que sea unificada para todas
+     
+cars_gr <- group_by(.data = cars_sc, cyl)  #Ahora se hace un resumen de todas las variables con la función group_by()
+cars_mean <-  summarise_all(cars_gr, ~mean(.)) #Summarise_all aplica una transformación para varias variables, se obtiene la media de cada variable
+
+ggradar(cars_mean,  group.line.width=0.4,  group.point.size = 2) #Se grafica el gráfico de tela de araña en el que podemos modificar el grosor                        de las lineas (group.line.width) y el diámetro de los puntos de la gráfica (group.point.size)
+
+```
+El gráfico separa los autos por octanaje, se muestra el data frame de cars para  mostrar todos los elementos de la data y para mejor entendimiento de la gráfica
+
+```{R final, include=FALSE}
+library(vembedr)
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+```{r}
+embed_youtube("Smd4CUg_cB0&t=10s")
+```
+
+
+
