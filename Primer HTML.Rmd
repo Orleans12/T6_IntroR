@@ -64,15 +64,7 @@ ggradar(cars_mean,  group.line.width=0.4,  group.point.size = 2) #Se grafica el 
 ```
 El gráfico separa los autos por octanaje, se muestra el data frame de cars para  mostrar todos los elementos de la data y para mejor entendimiento de la gráfica
 
-```{R final, include=FALSE}
-library(vembedr)
-knitr::opts_chunk$set(echo = TRUE)
 
-```
-
-```{r}
-embed_youtube("Smd4CUg_cB0&t=10s")
-```
 
 
 
